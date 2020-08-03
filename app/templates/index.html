@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+      body {
+          margin: 0;
+      }
+      .waterfall{
+          width: 100%;
+      }
+    .waterfall img {
+      position: absolute;
+      width: 200px;
+	  margin: 4px;
+       
+      transition: all .4s;
+    }
+
+    @media (max-width: 600px) {
+        .waterfall img {
+            width: calc(50vw - 5px);   
+            margin: 2px;
+        }
+    }
+  </style>
+  <title>Babylon</title>
+</head>
+<body>
+  <div class="waterfall">
+	
+      {% for photo in photos %}
+
+        <a href="{{ photo.target_url }}">
+            <img src="{{ photo.brick_url }}" data-id="{{ photo.id }}" class="brick">
+        </a>
+      {% endfor %}
+
+  </div>
+
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script>
+
+  var colCount   
+  var colHeightArry= []   
+  var imgWidth = $('.waterfall img').outerWidth(true)   
+
+
+  colCount = parseInt($('.waterfall').width()/imgWidth)   
+  for(var i = 0 ; i < colCount; i ++){
+    colHeightArry[i] = 0
+  }
+  
+
+  console.log($('.waterfall').width())
+  console.log(imgWidth)
+  console.log(colCount)
+
+
+  $('.waterfall img').on('load',function(){
+  
+    var minValue = colHeightArry[0]  
+    var minIndex = 0  
+    for(var i = 0 ; i < colCount; i ++){
+      if(colHeightArry[i] < minValue){   
+        minValue = colHeightArry[i]   
+        minIndex = i  
+      }
+    }
+
+    $(this).css({
+      left: minIndex * imgWidth,
+      top: minValue
+    })
+    colHeightArry[minIndex] += $(this).outerHeight(true)
+  })
+
+
+  
+  $(window).on('resize',function(){
+    reset()
+  })
+
+
+  
+  $(window).on('load',function(){
+    reset()
+  })
+
+  
+  function reset(){
+	var colHeightArry= []
+    colCount = parseInt($('.waterfall').width()/imgWidth)
+    for(var i = 0 ; i < colCount; i ++){
+      colHeightArry[i] = 0
+    }
+    $('.waterfall img').each(function(){
+      var minValue = colHeightArry[0]
+      var minIndex = 0
+      for(var i = 0 ; i < colCount; i ++){
+        if(colHeightArry[i] < minValue){
+          minValue = colHeightArry[i]
+          minIndex = i
+        }
+      }
+
+      $(this).css({
+        left: minIndex * imgWidth,
+        top: minValue
+      })
+      colHeightArry[minIndex] += $(this).outerHeight(true)
+    })
+  }
+
+  $(".brick").contextmenu(function () {
+      if (!confirm("要删除此图片吗?")) {
+          return
+      }
+      $brick = $(this)
+      $.ajax({
+          type: "post",
+          url: "/hide_photo/",
+          data: {
+              id: $brick.attr('data-id')
+          },
+          success: function (res) {
+              $brick.remove()
+              top.location.reload()
+          }
+      })
+  })
+
+
+</script>
