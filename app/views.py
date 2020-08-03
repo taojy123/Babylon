@@ -9,7 +9,7 @@ from app.models import Photo
 
 
 def index(request):
-    photos = Photo.objects.filter(hidden=False).order_by('-created_at')
+    photos = Photo.objects.filter(hidden=False).order_by('-created_at')[:100]
     return render(request, 'index.html', locals())
 
 

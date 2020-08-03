@@ -16,7 +16,7 @@ class Photo(models.Model):
     @property
     def brick_url(self):
         assert self.url[-4:] == '/800', self.url
-        url = self.url[:-4] + '/400'
+        url = self.url[:-4] + '/200'
         url = '/get_photo/?url=' + url
         return url
 
