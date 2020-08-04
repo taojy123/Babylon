@@ -5,38 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <style>
-      body {
-          margin: 0;
-      }
-      .waterfall{
-          width: 100%;
-      }
 
-    {#.waterfall img {#}
-    {#  position: absolute;#}
-    {#  width: 200px;#}
-	{#  margin: 4px;#}
-    {#}#}
-    {##}
-    {#@media (max-width: 600px) {#}
-    {#    .waterfall img {#}
-    {#        width: calc(50vw - 5px);#}
-    {#        margin: 2px;#}
-    {#    }#}
-    {#}#}
 
     .waterfall{
-    　　column-count: 3;
-       -moz-column-count:3; /* Firefox */
-       -webkit-column-count:3; /* Safari 和 Chrome */
+    　　column-count: 8;
+       -moz-column-count:8; /* Firefox */
+       -webkit-column-count:8; /* Safari 和 Chrome */
+    }
+
+    .waterfall .item {
+        {#padding: 1%;#}
     }
 
     .waterfall img {
+        width: 100%;
     }
 
+    @media (max-width: 1200px) {
+        .waterfall {
+        　　column-count: 6;
+           -moz-column-count:6; /* Firefox */
+           -webkit-column-count:6; /* Safari 和 Chrome */
+        }
+    }
 
+    @media (max-width: 1000px) {
+        .waterfall {
+        　　column-count: 5;
+           -moz-column-count:5; /* Firefox */
+           -webkit-column-count:5; /* Safari 和 Chrome */
+        }
+    }
 
+    @media (max-width: 800px) {
+        .waterfall {
+        　　column-count: 4;
+           -moz-column-count:4; /* Firefox */
+           -webkit-column-count:4; /* Safari 和 Chrome */
+        }
+    }
 
+    @media (max-width: 600px) {
+        .waterfall {
+        　　column-count: 3;
+           -moz-column-count:3; /* Firefox */
+           -webkit-column-count:3; /* Safari 和 Chrome */
+        }
+    }
+
+    @media (max-width: 400px) {
+        .waterfall {
+        　　column-count: 2;
+           -moz-column-count:2; /* Firefox */
+           -webkit-column-count:2; /* Safari 和 Chrome */
+        }
+    }
+
+    @media (max-width: 250px) {
+        .waterfall {
+        　　column-count: 1;
+           -moz-column-count:1; /* Firefox */
+           -webkit-column-count:1; /* Safari 和 Chrome */
+        }
+    }
 
 
   </style>
@@ -55,10 +86,8 @@
     </div>
 
 
-
-
     {% if next_url %}
-        <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right; margin-bottom: 20px">更早之前</a>
+        <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right; margin: 50px">更早之前 >></a>
     {% endif %}
 
 </body>
