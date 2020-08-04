@@ -40,7 +40,7 @@
     </div>
 
     {% if next_url %}
-        <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right">更早之前</a>
+        <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right; margin-bottom: 20px">更早之前</a>
     {% endif %}
 
 </body>
@@ -85,24 +85,24 @@
 
   
   $(window).on('resize',function(){
-    reset()
+      setTimeout(reset, 3000)
   })
 
 
   $(window).on('load',function(){
-    reset()
+      setTimeout(reset, 5000)
   })
 
   
   function reset(){
 	var colHeightArry= []
+    var minIndex = 0
     colCount = parseInt($('.waterfall').width()/imgWidth)
     for(var i = 0 ; i < colCount; i ++){
       colHeightArry[i] = 0
     }
     $('.waterfall img').each(function(){
       var minValue = colHeightArry[0]
-      var minIndex = 0
       for(var i = 0 ; i < colCount; i ++){
         if(colHeightArry[i] < minValue){
           minValue = colHeightArry[i]
@@ -116,8 +116,9 @@
       })
       colHeightArry[minIndex] += $(this).outerHeight(true)
 
-      $("#next").css({top: colHeightArry[minIndex] + 20 })
     })
+
+    $("#next").css({top: colHeightArry[minIndex] + 20 })
   }
 
   $(".brick").contextmenu(function () {

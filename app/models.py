@@ -25,7 +25,7 @@ class Photo(models.Model):
     @property
     def brick_url(self):
         if self.pic:
-            return self.pic.url + '?imageView2/2/h/200'
+            return self.pic.url + '?imageView2/2/w/200'
         url = self.url[:-4] + '/200'
         url = '/get_photo/?url=' + url
         return url
