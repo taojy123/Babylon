@@ -26,6 +26,7 @@ def detail(request, pid):
     photo = Photo.objects.get(id=pid)
     prev_photo = Photo.objects.filter(id__gt=pid).order_by('id').first()
     next_photo = Photo.objects.filter(id__lt=pid).order_by('-id').first()
+    back_url = '/?after=%d' % (photo.id + 3)
     return render(request, 'detail.html', locals())
 
 
