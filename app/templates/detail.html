@@ -8,16 +8,18 @@
 </head>
 <body>
 
+    <a href="/" style="padding: 5px; position: fixed; top: 10px;text-decoration: none;"><<<</a>
+
     <div>
         <img src="{{ photo.target_url }}" width="100%">
     </div>
 
     <div>
         {% if prev_photo %}
-            <a href="/detail/{{ prev_photo.id }}/" style="float: left; padding: 30px; background-color: blanchedalmond">上一张</a>
+            <a href="/detail/{{ prev_photo.id }}/" style="float: left; padding: 30px; background-color: blanchedalmond;text-decoration: none;">上一张</a>
         {% endif %}
         {% if next_photo %}
-            <a href="/detail/{{ next_photo.id }}/" style="float: right; padding: 30px; background-color: blanchedalmond">下一张</a>
+            <a href="/detail/{{ next_photo.id }}/" style="float: right; padding: 30px; background-color: blanchedalmond;text-decoration: none;">下一张</a>
         {% endif %}
     </div>
 </body>
