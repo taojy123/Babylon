@@ -11,33 +11,51 @@
       .waterfall{
           width: 100%;
       }
-    .waterfall img {
-      position: absolute;
-      width: 200px;
-	  margin: 4px;
-       
-      transition: all .4s;
+
+    {#.waterfall img {#}
+    {#  position: absolute;#}
+    {#  width: 200px;#}
+	{#  margin: 4px;#}
+    {#}#}
+    {##}
+    {#@media (max-width: 600px) {#}
+    {#    .waterfall img {#}
+    {#        width: calc(50vw - 5px);#}
+    {#        margin: 2px;#}
+    {#    }#}
+    {#}#}
+
+    .waterfall{
+    　　column-count: 3;
+       -moz-column-count:3; /* Firefox */
+       -webkit-column-count:3; /* Safari 和 Chrome */
     }
 
-    @media (max-width: 600px) {
-        .waterfall img {
-            width: calc(50vw - 5px);   
-            margin: 2px;
-        }
+    .waterfall img {
     }
+
+
+
+
+
+
   </style>
   <title>babylon</title>
 </head>
 <body>
+
     <div class="waterfall">
-
       {% for photo in photos %}
-        <a href="{{ photo.target_url }}">
-            <img src="{{ photo.brick_url }}" data-id="{{ photo.id }}" class="brick">
-        </a>
+           <div class="item">
+                <a href="{{ photo.target_url }}">
+                    <img src="{{ photo.brick_url }}" data-id="{{ photo.id }}" class="brick">
+                </a>
+           </div>
       {% endfor %}
-
     </div>
+
+
+
 
     {% if next_url %}
         <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right; margin-bottom: 20px">更早之前</a>
@@ -45,101 +63,5 @@
 
 </body>
 
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-<script>
-
-  var colCount   
-  var colHeightArry= []   
-  var imgWidth = $('.waterfall img').outerWidth(true)   
-
-
-  colCount = parseInt($('.waterfall').width()/imgWidth)   
-  for(var i = 0 ; i < colCount; i ++){
-    colHeightArry[i] = 0
-  }
-  
-
-  console.log($('.waterfall').width())
-  console.log(imgWidth)
-  console.log(colCount)
-
-
-  $('.waterfall img').on('load',function(){
-  
-    var minValue = colHeightArry[0]  
-    var minIndex = 0  
-    for(var i = 0 ; i < colCount; i ++){
-      if(colHeightArry[i] < minValue){   
-        minValue = colHeightArry[i]   
-        minIndex = i  
-      }
-    }
-
-    $(this).css({
-      left: minIndex * imgWidth,
-      top: minValue
-    })
-    colHeightArry[minIndex] += $(this).outerHeight(true)
-  })
-
-
-  
-  $(window).on('resize',function(){
-      setTimeout(reset, 3000)
-  })
-
-
-  $(window).on('load',function(){
-      setTimeout(reset, 5000)
-  })
-
-  
-  function reset(){
-	var colHeightArry= []
-    var minIndex = 0
-    colCount = parseInt($('.waterfall').width()/imgWidth)
-    for(var i = 0 ; i < colCount; i ++){
-      colHeightArry[i] = 0
-    }
-    $('.waterfall img').each(function(){
-      var minValue = colHeightArry[0]
-      for(var i = 0 ; i < colCount; i ++){
-        if(colHeightArry[i] < minValue){
-          minValue = colHeightArry[i]
-          minIndex = i
-        }
-      }
-
-      $(this).css({
-        left: minIndex * imgWidth,
-        top: minValue
-      })
-      colHeightArry[minIndex] += $(this).outerHeight(true)
-
-    })
-
-    $("#next").css({top: colHeightArry[minIndex] + 20 })
-  }
-
-  $(".brick").contextmenu(function () {
-      if (!confirm("要隐藏此图片吗?")) {
-          return
-      }
-      $brick = $(this)
-      $.ajax({
-          type: "post",
-          url: "/hide_photo/",
-          data: {
-              id: $brick.attr('data-id')
-          },
-          success: function (res) {
-              $brick.remove()
-              //top.location.reload()
-          }
-      })
-  })
-
-
-</script>
 
 </html>
