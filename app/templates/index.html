@@ -26,22 +26,25 @@
         }
     }
   </style>
-  <title>Babylon</title>
+  <title>babylon</title>
 </head>
 <body>
-  <div class="waterfall">
-	
-      {% for photo in photos %}
+    <div class="waterfall">
 
+      {% for photo in photos %}
         <a href="{{ photo.target_url }}">
             <img src="{{ photo.brick_url }}" data-id="{{ photo.id }}" class="brick">
         </a>
       {% endfor %}
 
-  </div>
+    </div>
+
+    {% if next_url %}
+        <a id="next" href="{{ next_url }}" style="padding: 10px; background-color: lemonchiffon; color: brown; position: relative; float:right">更早之前</a>
+    {% endif %}
 
 </body>
-</html>
+
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
 <script>
 
@@ -112,11 +115,13 @@
         top: minValue
       })
       colHeightArry[minIndex] += $(this).outerHeight(true)
+
+      $("#next").css({top: colHeightArry[minIndex] + 20 })
     })
   }
 
   $(".brick").contextmenu(function () {
-      if (!confirm("要删除此图片吗?")) {
+      if (!confirm("要隐藏此图片吗?")) {
           return
       }
       $brick = $(this)
@@ -135,3 +140,5 @@
 
 
 </script>
+
+</html>
