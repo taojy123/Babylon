@@ -20,6 +20,7 @@ from app import views
 
 urlpatterns = [
     path('', views.index),
+    path('detail/<pid>/', views.detail),
     path('get_photo/', views.get_photo),
     path('hide_photo/', views.hide_photo),
     path('fetch/', views.fetch),

@@ -22,6 +22,13 @@ def index(request):
     return render(request, 'index.html', locals())
 
 
+def detail(request, pid):
+    photo = Photo.objects.get(id=pid)
+    prev_photo = Photo.objects.filter(id__gt=pid).order_by('id').first()
+    next_photo = Photo.objects.filter(id__lt=pid).order_by('-id').first()
+    return render(request, 'detail.html', locals())
+
+
 def get_photo(request):
     url = request.GET['url']
     r = requests.get(url)
