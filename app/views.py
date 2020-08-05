@@ -1,3 +1,4 @@
+import base64
 import json
 import time
 
@@ -47,8 +48,9 @@ def fetch(request):
 
         albums = (
             # topicId, picKey, t
-            ('1107775508_V53i2qLf1VK29s0cNm8C1WDsOh1Y9vDP', 'V5bCgAxMTA3Nzc1NTA42rgnX96IrSw!', '790087113'),
-            ('1107775508_V53i2qLf1VK29s0cNm8C1WDsOh02eG8n', 'V5bCgAxMTA3Nzc1NTA4AOkoX2w7JDA!', '228205055'),
+            # ('1107775508_V53i2qLf1VK29s0cNm8C1WDsOh1Y9vDP', 'V5bCgAxMTA3Nzc1NTA42rgnX96IrSw!', '790087113'),
+            # ('1107775508_V53i2qLf1VK29s0cNm8C1WDsOh02eG8n', 'V5bCgAxMTA3Nzc1NTA4AOkoX2w7JDA!', '228205055'),
+            ('1107775508_V53i2qLf1VK29s0cNm8C1WDsOh4dfUbu', 'V5bCgAxMTA3Nzc1NTA4DlsqX1yCwBY!', '945994479'),
         )
 
         cache, _ = Cache.objects.get_or_create()
@@ -160,5 +162,8 @@ def fetch(request):
 
         return HttpResponse(count)
 
-    return render(request, 'fetch.html')
+    b = open('example.jpg', 'rb').read()
+    s = base64.b64encode(b).decode()
+    example_url = 'data:image;base64,' + s
+    return render(request, 'fetch.html', locals())
 

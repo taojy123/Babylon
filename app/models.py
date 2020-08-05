@@ -36,7 +36,7 @@ class Photo(models.Model):
 
     @property
     def brick_tag(self):
-        return format_html('<img src="%s" height="100" />' % self.brick_url)
+        return format_html('<img src="%s" height="300" />' % self.brick_url)
 
     def save_pic(self, force=False):
         if not force and self.pic:
